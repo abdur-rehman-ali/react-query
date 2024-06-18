@@ -1,37 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { fetchSingleProductFromEndpoint } from '../../fetchers/products'
+import React from 'react'
 import ErrorComponent from '../../components/errors/ErrorComponent'
 import { Link, useParams } from 'react-router-dom'
 import Loader from '../../components/loaders/Loader'
+import { useSingleProductQuery } from '../../lib/react-query/queries'
 
 const ProductDetail = () => {
   const { productID } = useParams()
-  const [product, setProduct] = useState({})
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-
-
-  useEffect(() => {
-    fetchSingleProduct()
-  }, [])
-
-  const fetchSingleProduct = async () => {
-    try {
-      setIsLoading(true)
-      const data = await fetchSingleProductFromEndpoint(productID)
-      setProduct(data)
-      setIsLoading(false)
-    } catch (error) {
-      setIsLoading(false)
-      setError(error.message)
-    }
-  }
+ 
+  const { isPending: isLoading, isError, data, error } = useSingleProductQuery(productID)
+  const product = data?.data;
 
   if (isLoading) {
     return <Loader/>
   }
 
-  if (error) {
+  if (isError) {
     return <ErrorComponent error={error} />
   }
 
@@ -50,10 +33,10 @@ const ProductDetail = () => {
                 <div className="mt-4 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">
-                      <a href="#">
+                      <p>
                         <span aria-hidden="true" className="absolute inset-0"></span>
                         {product.title}
-                      </a>
+                      </p>
                     </h3>
                     <p className="mt-1 text-sm text-gray-500"> <strong>Brand </strong>{product.brand}</p>
                     <p className="mt-1 text-sm text-gray-500"> <strong>Description </strong> {product.description}</p>
