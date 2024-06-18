@@ -11,10 +11,10 @@ const Product = ({ id, title, price, thumbnail, brand = "Local" }) => {
         <div className="mt-4 flex justify-between">
           <div>
             <h3 className="text-sm text-gray-700">
-              <a href="#">
+              <p>
                 <span aria-hidden="true" className="absolute inset-0"></span>
                 {title}
-              </a>
+              </p>
             </h3>
             <p className="mt-1 text-sm text-gray-500">{brand}</p>
           </div>
