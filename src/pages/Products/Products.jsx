@@ -1,18 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Product from '../../components/Product/Product'
 import ProductsFetchingError from '../../components/errors/ErrorComponent'
 import Loader from '../../components/loaders/Loader'
 import { useProductsQuery } from '../../lib/react-query/queries'
 
 const Products = () => {
-  const { isPending: isLoading, isError, data: products, error } = useProductsQuery()
+  const [limit, setLimit] = useState(4)
+  const [skip, setSkip] = useState(0)
+  const { isPending: isLoading, isError, data: products, error } = useProductsQuery(limit, skip)
 
   if (isLoading) {
-    return <Loader/>
+    return <Loader />
   }
 
   if (isError) {
     return <ProductsFetchingError error={error} />
+  }
+
+  const handleMove = (limit) => {
+    setSkip(prev => Math.max(prev + limit, 0))
   }
 
   return (
@@ -32,6 +38,18 @@ const Products = () => {
               />
             ))
           }
+        </div>
+        <div className="flex gap-2 mt-12">
+          <button
+            className="bg-purple-500 px-4 py-1 text-white rounded"
+            onClick={() => {handleMove(-limit) }}>
+            Prev
+          </button>
+          <button
+            className="bg-purple-500 px-4 py-1 text-white rounded"
+            onClick={() => { handleMove(limit) }}>
+            Next
+          </button>
         </div>
       </div>
     </div>

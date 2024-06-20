@@ -1,7 +1,7 @@
 import axios from "axios"
 
-export const fetchProducts = () => {
-  const URL = 'https://dummyjson.com/products'
+export const fetchProducts = (limit, skip) => {
+  const URL = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
   return axios.get(URL)
 }
 
