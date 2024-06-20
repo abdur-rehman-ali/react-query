@@ -3,10 +3,17 @@ import Product from '../../components/Product/Product'
 import ProductsFetchingError from '../../components/errors/ErrorComponent'
 import Loader from '../../components/loaders/Loader'
 import { useProductsQuery } from '../../lib/react-query/queries'
+import { useSearchParams } from "react-router-dom";
+
 
 const Products = () => {
-  const [limit, setLimit] = useState(4)
-  const [skip, setSkip] = useState(0)
+  const [searchParams, setSearchParams] = useSearchParams({
+    limit: 4,
+    skip: 0
+  })
+  const limit = parseInt(searchParams.get('limit') || 4)
+  const skip = parseInt(searchParams.get('skip') || 0)
+
   const { isPending: isLoading, isError, data: products, error } = useProductsQuery(limit, skip)
 
   if (isLoading) {
@@ -18,7 +25,10 @@ const Products = () => {
   }
 
   const handleMove = (limit) => {
-    setSkip(prev => Math.max(prev + limit, 0))
+    setSearchParams((prev) => {
+      prev.set('skip', Math.max(skip + limit, 0))
+      return prev
+    })
   }
 
   return (
@@ -42,7 +52,7 @@ const Products = () => {
         <div className="flex gap-2 mt-12">
           <button
             className="bg-purple-500 px-4 py-1 text-white rounded"
-            onClick={() => {handleMove(-limit) }}>
+            onClick={() => { handleMove(-limit) }}>
             Prev
           </button>
           <button
