@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useQueries } from '@tanstack/react-query';
-import axios from 'axios';
-
-const fetchSingleUser = async (userID) => {
-  if(!userID) return
-  const URL = `http://dummyjson.com/users/${userID}`
-  const { data } = await axios.get(URL)
-  return data
-}
+import { QUERY_KEYS } from '../../lib/react-query/queryKeys';
+import { fetchSingleUser } from '../../lib/apis/apis';
 
 const Parallel = () => {
   const [userIds, setUserIds] = useState([1, 2, 3]);
@@ -27,7 +21,7 @@ const Parallel = () => {
   const userQueries = useQueries({
     queries: userIds.map(id => {
       return {
-        queryKey: ['user', id],
+        queryKey: [QUERY_KEYS.USER, id],
         queryFn: () => fetchSingleUser(id)
       }
     })
