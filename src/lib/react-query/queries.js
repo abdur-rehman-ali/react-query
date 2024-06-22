@@ -1,5 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchProducts, fetchProductsCategories, fetchSingleProduct } from "../apis/apis.js"
+import {
+  fetchCommentsByPostId,
+  fetchPostById,
+  fetchProducts,
+  fetchProductsCategories,
+  fetchSingleProduct
+} from "../apis/apis.js"
 import { QUERY_KEYS } from './queryKeys.js'
 
 export const useProductsQuery = (limit, skip, q, category) => {
@@ -25,4 +31,18 @@ export const useProductsCategories = () => {
     queryFn: fetchProductsCategories,
     staleTime: Infinity
   })
+}
+
+export const usePost = (postId) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.POST, postId],
+    queryFn: () => fetchPostById(postId),
+  });
+}
+
+export const usePostComments = (post) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.POST_COMMENTS, post?.id],
+    queryFn: () => fetchCommentsByPostId(post?.id),
+  });
 }

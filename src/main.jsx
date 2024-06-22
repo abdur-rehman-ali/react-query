@@ -12,6 +12,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import Dependent from './pages/Dependent/Dependent';
 
 
 const queryClient = new QueryClient()
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/products/:productID",
     element: <ProductDetail />,
+  },
+  {
+    path: "/dependent",
+    element: <Dependent />,
   },
 ]);
 
