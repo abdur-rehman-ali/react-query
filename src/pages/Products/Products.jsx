@@ -70,11 +70,13 @@ const Products = () => {
         }
         <div className="flex gap-2 mt-12">
           <button
+            disabled={skip < limit}
             className="bg-purple-500 px-4 py-1 text-white rounded"
             onClick={() => { handleMove(-limit) }}>
             Prev
           </button>
           <button
+            disabled={limit + skip > products?.data?.total}
             className="bg-purple-500 px-4 py-1 text-white rounded"
             onClick={() => { handleMove(limit) }}>
             Next
