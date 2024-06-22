@@ -3,5 +3,6 @@ export const QUERY_KEYS = {
   SINGLE_PRODUCT: "getSingleProduct",
   PRODUCTS_CATEGORIES: "getProductsCategories",
   POST: "getPost",
-  POST_COMMENTS: "getPostComments"
+  POST_COMMENTS: "getPostComments",
+  USER: "user"
 }

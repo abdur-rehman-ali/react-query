@@ -30,3 +30,10 @@ export const fetchCommentsByPostId = async (postId) => {
   const { data } = await axios.get(URL)
   return data.comments
 };
+
+export const fetchSingleUser = async (userID) => {
+  if(!userID) return
+  const URL = `http://dummyjson.com/users/${userID}`
+  const { data } = await axios.get(URL)
+  return data
+}
