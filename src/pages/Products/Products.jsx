@@ -6,7 +6,6 @@ import { useProductsQuery } from '../../lib/react-query/queries'
 import { useSearchParams } from "react-router-dom";
 import debounce from 'lodash.debounce';
 
-
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams({
     limit: 4,
@@ -39,6 +38,7 @@ const Products = () => {
             onChange={debounce((e) => {
               setSearchParams(prev => {
                 prev.set('q', e.target.value);
+                prev.delete('skip');
                 return prev
               })
 
