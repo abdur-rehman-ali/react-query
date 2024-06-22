@@ -9,3 +9,8 @@ export const fetchSingleProduct = (productID) => {
   const URL = `https://dummyjson.com/products/${productID}`
   return axios.get(URL)
 }
+
+export const fetchProductsCategories = () => {
+  const URL = `https://dummyjson.com/products/category-list`
+  return axios.get(URL)
+}
