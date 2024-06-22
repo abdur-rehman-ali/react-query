@@ -13,6 +13,7 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Dependent from './pages/Dependent/Dependent';
+import Parallel from './pages/Parallel/Parallel';
 
 
 const queryClient = new QueryClient()
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/dependent",
     element: <Dependent />,
+  },
+  {
+    path: "/parallel",
+    element: <Parallel />,
   },
 ]);
 
