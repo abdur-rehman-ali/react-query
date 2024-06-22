@@ -1,7 +1,10 @@
 import axios from "axios"
 
-export const fetchProducts = (limit, skip, q) => {
+export const fetchProducts = (limit, skip, q, category) => {
   let URL = `https://dummyjson.com/products/search?q=${q}&limit=${limit}&skip=${skip}`
+  if (category) { 
+    URL = `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`
+  }
   return axios.get(URL)
 }
 

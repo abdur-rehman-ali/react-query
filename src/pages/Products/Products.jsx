@@ -14,8 +14,9 @@ const Products = () => {
   const limit = parseInt(searchParams.get('limit') || 4)
   const skip = parseInt(searchParams.get('skip') || 0)
   const q = searchParams.get('q') || ''
+  const category = searchParams.get('category') || ''
 
-  const { isPending: isLoading, isError, data: products, error } = useProductsQuery(limit, skip, q)
+  const { isPending: isLoading, isError, data: products, error } = useProductsQuery(limit, skip, q, category)
   const { data: categories } = useProductsCategories()
 
   if (isError) {
@@ -39,6 +40,7 @@ const Products = () => {
               setSearchParams(prev => {
                 prev.set('q', e.target.value);
                 prev.delete('skip');
+                prev.delete('category')
                 return prev
               })
 
@@ -49,7 +51,13 @@ const Products = () => {
             className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-200 sm:text-sm sm:leading-6"
             placeholder="Search Products"
           />
-          <select className="border rounded-md p-2" onChange={() => { }}>
+          <select className="border rounded-md p-2" onChange={(e) => {
+            setSearchParams((prev) => {
+              prev.set('category', e.target.value)
+              prev.delete('q')
+              return prev
+            })
+           }}>
             <option>Select category</option>
             {categories?.data.map((category) => (
               <option key={category} value={category}>
