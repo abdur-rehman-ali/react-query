@@ -26,7 +26,6 @@ export const fetchPostById = async (postId) => {
 };
 
 export const fetchCommentsByPostId = async (postId) => {
-  if (!postId) return
   const URL = `https://dummyjson.com/comments/post/${postId}`
   const { data } = await axios.get(URL)
   return data.comments

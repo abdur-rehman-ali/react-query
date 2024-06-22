@@ -44,5 +44,6 @@ export const usePostComments = (post) => {
   return useQuery({
     queryKey: [QUERY_KEYS.POST_COMMENTS, post?.id],
     queryFn: () => fetchCommentsByPostId(post?.id),
+    enabled: !!post?.id // Helps us to identify the dependent queries
   });
 }
