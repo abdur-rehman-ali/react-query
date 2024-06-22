@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchProducts, fetchProductsCategories, fetchSingleProduct } from "../apis/apis.js"
 import { QUERY_KEYS } from './queryKeys.js'
 
-export const useProductsQuery = (limit, skip, q) => {
+export const useProductsQuery = (limit, skip, q, category) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.PRODUCTS, limit, skip, q],
-    queryFn: () => fetchProducts(limit, skip, q),
+    queryKey: [QUERY_KEYS.PRODUCTS, limit, skip, q, category],
+    queryFn: () => fetchProducts(limit, skip, q, category),
     keepPreviousData: true,
     staleTime: Infinity
   })
